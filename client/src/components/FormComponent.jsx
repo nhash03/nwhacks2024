@@ -31,8 +31,12 @@ const FormComponent = () => {
       setIsLoading(true);
       const response = await axios.post('http://localhost:8080/api/analyze', formData);
       setIsLoading(false);
+      console.log(response)
+      console.log(typeof(response))
       console.log(response.data.message);
+      console.log(response.data.hilo);
       localStorage.setItem("key", response.data.message);
+      localStorage.setItem("hilo", response.data.hilo);
     } catch(error) {
       setIsLoading(false);
       console.log('error');

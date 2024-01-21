@@ -11,21 +11,19 @@ const Options = ( ) => {
     navigate('/drug_portal');
   };
 
+    const listItems = localStorage.getItem("hilo").split(",").map((s) => 
+        <li>
+            {s}
+        </li>
+    )
+
   return (
     <div id = 'issues'>
     <ul >
         <li id='bold'>
             A bit of health analysis...
         </li>
-        <li>
-            High level of Red Cell Distribution Width
-        </li>
-        <li>
-            High Platelet Count
-        </li>
-        <li>
-            Relatively low Sodium level
-        </li>
+        {listItems}
     </ul>
     <p>
         {/* Based on your test results and personal information, it's possible that you have nutrition deficiencies. 
