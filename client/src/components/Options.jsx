@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import './options.css'
 
 
 const Options = ( ) => {
@@ -11,9 +12,11 @@ const Options = ( ) => {
   };
 
   return (
-    <div>
-    <h2>A bit of health analysis...</h2>
-    <ul>
+    <div id = 'issues'>
+    <ul >
+        <li id='bold'>
+            A bit of health analysis...
+        </li>
         <li>
             High level of Red Cell Distribution Width
         </li>

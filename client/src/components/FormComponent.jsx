@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import './FormComponent.css';
+import BackgroundImage from './search.jpg';
 
 
 const FormComponent = () => {
@@ -34,18 +36,20 @@ const FormComponent = () => {
   };
 
   return (
-    <form >
-      <div>
-        <label htmlFor="text">Text:</label>
-        <input type="text" id="text" value={text} onChange={handleTextChange} />
-      </div>
-      <div>
-        <label htmlFor="image">Image:</label>
-        <input type="file" id="image" onChange={handleImageChange} />
-      </div>
-      <button type="submit" onClick={handleApi}>
-        Submit</button>
-    </form>
+    <div style={{ backgroundImage: `url('search.jpg')` }}>
+      <form className='form'>
+        <div >
+          <label htmlFor="text" id = 'form-text'>Your Personal Info:</label>
+          <input type="text" id="form-text-space" value={text} onChange={handleTextChange} />
+        </div>
+        <div>
+          <label htmlFor="image" id='medical-text'>Medical Lab Report:</label>
+          <input type="file" id="medical-image" onChange={handleImageChange} />
+        </div>
+        <button type="submit" onClick={handleApi} id = 'submit-but'>
+          Submit</button>
+      </form>
+    </div>
   );
 };
 

@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Options from './components/Options';
 import DrugPortal from './components/DrugPortal';
 import DrugConflict from './components/ConflictAnalysis';
+import Header from './components/common/header';
 
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
       <div className="App">
       <BrowserRouter>
         <div className="pages">
+          <Header/>
           <Routes>
             <Route path='/' element={<FormComponent />}/>
             <Route path='/options' element={<Options />}/>

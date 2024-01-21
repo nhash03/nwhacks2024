@@ -1,0 +1,23 @@
+#issues li{
+width: 2000px;
+}
+
+#issues h2{
+    left: 50px;
+}
+
+#bold {
+    list-style-type: none;
+    font-size: 30px;
+    /* margin-bottom: 40px; */
+    padding: 30px 30px 30px 30px;
+    width: min-200;
+}
+
+#issues {
+    background-color: rgb(191, 209, 221);
+}
+
+#issues p {
+    left: 20 px;
+}
