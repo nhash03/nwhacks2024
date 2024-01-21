@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const Tesseract = require('tesseract.js');
 const xlsx = require('xlsx');
+const axios = require('axios').default;
 
 const app = express();
 app.use(express.json())
@@ -16,22 +17,43 @@ const upload = multer({ storage: storage });
 app.use(express.static(path.join(__dirname, 'build')));
 
 
-app.post('/api/analyze', upload.single('image'), (req, res) => {
+app.post('/api/analyze', upload.single('image'), async (req, res) => {
   const text = req.body.text;
   const image = req.file;
   const imageBuffer = req.file.buffer;
 
-  Tesseract.recognize(
+  result = await Tesseract.recognize(
     imageBuffer,
     'eng', 
     { logger: info => console.log(info) } 
     ).then(({ data: { text } }) => {
-    console.log('Extracted Text:', text);
-    res.status(200).json({ success: true, message: text});
+    console.log('Extracted Text:', 'text');
+    return text;
+    // res.status(200).json({ success: true, message: text});
     }).catch(error => {
     console.error('Error extracting text:', error);
-    res.status(500).json({ success: false, message: 'Error extracting text from the image' });
+    return null;
+    // res.status(500).json({ success: false, message: 'Error extracting text from the image' });
   });
+
+  console.log("HI")
+
+  if (result === null) {
+    res.status(500).json({ success: false, message: 'Error extracting text from the image' });
+  } else {
+    console.log("SENDING DATA\n")
+    await axios.post("https://weakbsbs523kbyckuk67sfjjqe0qflck.lambda-url.us-east-2.on.aws/", {
+      data: result
+    })
+    .then(response => {
+      console.log(response.data.body)
+      res.status(200).json({ success: true, message: response.data.body});
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ success: false, message: 'Error extracting text from the image' });
+    })
+  }
 });
 
 app.post('/api/drug_conflict', (req, res) => {
