@@ -1,0 +1,16 @@
+.conflict {
+    background-color: aliceblue;
+    width: 800px;
+    height: 200px;
+    padding: 30px 30px 30px 30px;
+    margin-left: 250px;
+    border-radius: 16px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.conflict button {
+    position: absolute;
+    top: 580px;
+    left: 200px;
+    background-color: black;
+}

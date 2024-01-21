@@ -31,3 +31,23 @@ li a:hover {
 .active {
     background-color: #4CAF50;
 }
+
+.bg {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: -1;
+    /* object-fit: cover; */
+    left: 0;
+    top: 0;
+    background-size: 1500px 900px;
+}
+
+.search {
+    background-image: url("src/components/search.jpg");
+}
+
+.medication {
+        background-image: url("src/components/medication.png");
+        background-size: 1700px 900px;
+}

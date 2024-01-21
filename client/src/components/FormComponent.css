@@ -50,8 +50,21 @@ position: absolute;
 }
 
 body {
-    background-image: url('search.jpg');
+    background-image: url('src/components/search.png');
     background-size: cover;
     height: 100vh;
     color: black;
+}
+
+#bounce {
+    margin-left: 750px;
+
+}
+
+#emergency-button {
+    position: absolute;
+    top: 60px;
+    border-radius: 90%;
+    background-color: crimson;
+    right: 15px;
 }

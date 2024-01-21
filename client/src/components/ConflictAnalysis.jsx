@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './conflict.css'
+import Popup from 'reactjs-popup';
+
 import {useNavigate} from 'react-router-dom';
 
 const DrugConflict = () => {
@@ -35,13 +38,15 @@ const DrugConflict = () => {
         })
 
     })
-
     
     
     return (
-        <div>
+        <div className='conflict'>
         <h3>{data}</h3>
         <p>{food_data }</p>
+        <Popup trigger={<button> Finish your day with a personalized tip!</button>} position="right center">
+            <div>B vitamins play a vital role in energy production and supporting your nervous system !!</div>
+        </Popup>
         </div>
     );
 };

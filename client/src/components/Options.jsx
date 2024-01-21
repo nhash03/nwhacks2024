@@ -25,6 +25,7 @@ const Options = ( ) => {
         </li>
         {listItems}
     </ul>
+    <br></br>
     <p>
         {/* Based on your test results and personal information, it's possible that you have nutrition deficiencies. 
         Iron and folate deficiencis can cause high RDW. Additionally, high platelet count shows that your immune system
@@ -33,9 +34,9 @@ const Options = ( ) => {
          */}
         {localStorage.getItem("key")}
     </p>
-    <h4>
+    <h3>
         I can help you even more...
-    </h4>
+    </h3>
     <button onClick={handleNext}>Drug Portal</button>
     </div>
   );

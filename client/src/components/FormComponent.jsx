@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import BounceLoader from "react-spinners/BounceLoader";
 import './FormComponent.css';
 import BackgroundImage from './search.jpg';
+import {BG} from './common/background';
 
 
 const FormComponent = () => {
@@ -44,9 +45,26 @@ const FormComponent = () => {
     navigate('/options');
   };
 
+  // const requestEmergency = async() => {
+  //    try {
+  //     // Send user location to the server
+  //     const response = await axios.post('http://localhost:8080/notify', {
+  //       location: {
+  //         latitude: coords.latitude,
+  //         longitude: coords.longitude,
+  //       },
+  //     });
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error('Error sending emergency notification:', error);
+  //   }
+  // }
+
   return (
-    <div style={{ backgroundImage: `url('search.jpg')` }}>
-      <div>
+    <body style={{ backgroundImage: `url('src/components/search.png')` }}>
+            <BG image={"search"}/>
+    <div>
+      <div id = 'bounce'>
         {isLoading ? <p>currently loading</p> : null}
         <BounceLoader
           loading={isLoading}
@@ -65,8 +83,10 @@ const FormComponent = () => {
         </div>
         <button type="submit" onClick={handleApi} id = 'submit-but'>
           Submit</button>
+          <button  id='emergency-button'>SOS</button>
       </form>
     </div>
+    </body>
   );
 };
 

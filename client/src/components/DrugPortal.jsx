@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../designs/PillForm.css'; 
+import './DrugPortal.css';
+import {BG} from './common/background';
 import {useNavigate} from 'react-router-dom';
 
 
@@ -46,6 +48,8 @@ const DrugPortal = () => {
   };
 
   return (
+    <div className= 'blah'>
+      <BG image={"medication"}/>
     <form className="pill-form" onSubmit={handleSubmit}>
       <h2>Pill Reminder</h2>
       {pillList.map((pill, index) => (
@@ -78,6 +82,7 @@ const DrugPortal = () => {
       </button>
       <button type="submit" onClick={handleNext}>Submit</button>
     </form>
+    </div>
   );
 };
 

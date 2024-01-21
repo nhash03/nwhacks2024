@@ -10,14 +10,29 @@ width: 2000px;
     list-style-type: none;
     font-size: 30px;
     /* margin-bottom: 40px; */
-    padding: 30px 30px 30px 30px;
-    width: min-200;
+    /* padding: 30px 30px 30px 30px; */
+    /* width: 2000px; */
+    margin-top: 180px;
 }
 
 #issues {
     background-color: rgb(191, 209, 221);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 #issues p {
-    left: 20 px;
+    padding: 100px 700px 50px 30px;
+}
+
+#issues ul {
+    margin-bottom: 100px;
+}
+
+#issues h3 {
+    margin-left: 100px;
+}
+
+#issues button {
+    margin-left: 300px;
+    margin-bottom: 200px;
 }

@@ -5,6 +5,7 @@ const cors = require('cors');
 const Tesseract = require('tesseract.js');
 const xlsx = require('xlsx');
 const axios = require('axios').default;
+const admin = require('firebase-admin');
 
 const app = express();
 app.use(express.json())
@@ -16,6 +17,56 @@ const upload = multer({ storage: storage });
 
 app.use(express.static(path.join(__dirname, 'build')));
 
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+});
+
+const users = [
+  { id: 1, token: 'user_token_1', location: { latitude: 37.7749, longitude: -122.4194 } },
+  // Add more users...
+];
+
+app.post('/notify', (req, res) => {
+  const { location } = req.body;
+
+  // Identify nearby users (simplified algorithm)
+  const nearbyUsers = users.filter(user => {
+    const distance = calculateDistance(location, user.location);
+    return distance <= 5; // Assume users within 5 km are nearby
+  });
+
+  // Send notifications to nearby users
+  sendNotifications(nearbyUsers);
+
+  res.json({ success: true, message: 'Emergency notification sent.' });
+});
+
+function calculateDistance(location1, location2) {
+  // Simplified distance calculation using Euclidean distance formula
+  const latDiff = location1.latitude - location2.latitude;
+  const lonDiff = location1.longitude - location2.longitude;
+  return Math.sqrt(latDiff ** 2 + lonDiff ** 2);
+}
+
+function sendNotifications(users) {
+  const registrationTokens = users.map(user => user.token);
+
+  const message = {
+    notification: {
+      title: 'Emergency Notification',
+      body: 'Someone nearby needs help!',
+    },
+    tokens: registrationTokens,
+  };
+
+  admin.messaging().sendMulticast(message)
+    .then(response => {
+      console.log('Successfully sent emergency notification:', response);
+    })
+    .catch(error => {
+      console.error('Error sending emergency notification:', error);
+    });
+}
 
 app.post('/api/analyze', upload.single('image'), async (req, res) => {
   const text = req.body.text;
@@ -73,13 +124,13 @@ app.post('/api/drug_conflict', (req, res) => {
         }
     });
 
-    var conflictingPairs = "";
-
+    var conflictingPairs = 'WARNING: There is a possible drug interferenece between ';
+    console.log('drug list', drug_list)
     drug_list.forEach((drug) => {
         if (conflicts[drug]) {
             conflicts[drug].forEach((conflictingDrug) => {
                 if (drug_list.includes(conflictingDrug)){
-                conflictingPairs += 'WARNING: There is a possible drug interferenece between ' + drug+' and '+ conflictingDrug + '.\n';}
+                conflictingPairs += drug +' and '+ conflictingDrug + '-';}
         });
         }
   });
@@ -97,7 +148,7 @@ app.post('/api/food_conflict', (req, res) => {
     jsonData.forEach((row) => {
         const mainDrug = row['drug name '];
 
-        const conflictingDrugs = Object.keys(row).filter((key) => key !== 'drug name ' && row[key] && (key == 'Food interaction' || key == 'Food interaction 2' || key == 'Food interaction 3' || key == 'Food interference 4' )).map((key) => row[key]);
+        const conflictingDrugs = Object.keys(row).filter((key) => key !== 'drug name ' && row[key] && (row[key]!=='-1')&&(key == 'Food interaction' || key == 'Food interaction 2' || key == 'Food interaction 3' || key == 'Food interference 4' )).map((key) => row[key]);
         console.log(conflictingDrugs)
         if (conflictingDrugs.length > 0) {
             conflicts[mainDrug] = conflictingDrugs;
