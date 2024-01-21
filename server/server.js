@@ -47,7 +47,7 @@ app.post('/api/analyze', upload.single('image'), async (req, res) => {
     })
     .then(response => {
       console.log(response.data.body)
-      res.status(200).json({ success: true, message: response.data.body});
+      res.status(200).json({ success: true, message: JSON.parse(response.data.body).message, hilo: JSON.parse(response.data.body).hilo });
     })
     .catch(err => {
       console.log(err)
